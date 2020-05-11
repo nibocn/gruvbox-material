@@ -14,7 +14,7 @@ endif
 
 let g:colors_name = 'gruvbox-material'
 
-if !(has('termguicolors') && &termguicolors) && !has('gui_running') && &t_Co != 256
+if !g:termguicolors && !g:guirunning && &t_Co != 256
   finish
 endif
 
@@ -136,7 +136,7 @@ call gruvbox_material#highlight('Debug', s:palette.orange, s:palette.none)
 call gruvbox_material#highlight('debugPC', s:palette.bg0, s:palette.green)
 call gruvbox_material#highlight('debugBreakpoint', s:palette.bg0, s:palette.red)
 call gruvbox_material#highlight('ToolbarButton', s:palette.bg0, s:palette.grey2)
-if has('nvim')
+if g:editor ==# 'neovim'
   call gruvbox_material#highlight('Substitute', s:palette.bg0, s:palette.yellow)
   highlight! link TermCursor Cursor
   highlight! link healthError Red
@@ -1822,7 +1822,7 @@ highlight! link agitDiffHeader Purple
 " }}}
 " }}}
 " Terminal: {{{
-if (has('termguicolors') && &termguicolors) || has('gui_running')
+if g:termguicolors || g:guirunning
   " Definition
   let s:terminal = {
         \ 'black':    &background ==# 'dark' ? s:palette.bg0 : s:palette.fg0,
@@ -1835,7 +1835,7 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
         \ 'white':    &background ==# 'dark' ? s:palette.fg0 : s:palette.bg0
         \ }
   " Implementation: {{{
-  if !has('nvim')
+  if g:editor !=# 'neovim'
     let g:terminal_ansi_colors = [s:terminal.black[0], s:terminal.red[0], s:terminal.green[0], s:terminal.yellow[0],
           \ s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.white[0], s:terminal.black[0], s:terminal.red[0],
           \ s:terminal.green[0], s:terminal.yellow[0], s:terminal.blue[0], s:terminal.purple[0], s:terminal.cyan[0], s:terminal.white[0]]
